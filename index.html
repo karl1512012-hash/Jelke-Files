@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Department Of Kalaf - Example</title>
+  <meta name="description" content="Beispielseite für den Department Of Kalaf. Offizielle Dokumente und Ressourcen.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fafafa;
+    }
+
+    header {
+      background-color: #004b87;
+      color: white;
+      padding: 1rem;
+      border-bottom: 4px solid #b22234;
+    }
+
+    nav {
+      background-color: #f2f2f2;
+      padding: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      margin: 0.3rem 1rem 0.3rem 0;
+      color: #004b87;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #002f5f;
+    }
+
+    main {
+      padding: 1rem;
+      background: white;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+
+    footer {
+      background-color: #e3e3e3;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    .logo {
+      display: inline-block;
+      vertical-align: middle;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .pdf-button {
+      background-color: #004b87;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    .pdf-button:hover {
+      background-color: #002f5f;
+    }
+
+    /* Spinner Styling */
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #004b87;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    .spinner-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      height: 200px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+
+    /* PDF Container mit dynamischer Höhe und etwas breiter */
+    #pdf-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      min-height: 100px;
+    }
+
+    #pdf-container object {
+      width: 100%;
+      max-width: 700px;  /* etwas breiter */
+      height: 95vh;      /* fast volle Höhe */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 5px;
+    }
+
+    @media (max-width: 600px) {
+      #pdf-container object {
+        height: 90vh;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <img src="noFilter.webp" alt="Site Logo" class="logo">
+      <span style="margin-left: 1rem; font-size: 2rem; font-weight: bold;">
+        Department Of Kalaf
+      </span>
+    </div>
+  </header>
+
+  <nav class="container">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#news">News</a>
+    <a href="#resources">Resources</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main class="container">
+    <h1>Welcome to the Department of Kalaf</h1>
+    <p>This is not an official website.</p>
+
+    <h2>Official Document</h2>
+
+    <button id="pdf-button" class="pdf-button" aria-label="Offizielles Dokument anzeigen">
+      📄 Jelke Files Anzeigen
+    </button>
+
+    <div id="pdf-container" role="region" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Department Of Kalaf.</p>
+    </div>
+  </footer>
+
+  <script>
+    const pdfButton = document.getElementById("pdf-button");
+    const pdfContainer = document.getElementById("pdf-container");
+    let pdfLoaded = false;
+
+    pdfButton.addEventListener("click", () => {
+      if (pdfLoaded) return;
+
+      // Spinner anzeigen
+      pdfContainer.innerHTML = `
+        <div class="spinner-container">
+          <div class="spinner"></div>
+          <span>Lädt PDF...</span>
+        </div>
+      `;
+
+      // PDF nach kurzer Verzögerung einfügen
+      setTimeout(() => {
+        pdfContainer.innerHTML = `
+          <object data="dokument.pdf" type="application/pdf"></object>
+        `;
+        pdfLoaded = true;
+        pdfButton.textContent = "📄 Jelke Files werden angezeigt";
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
